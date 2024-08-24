@@ -38,7 +38,7 @@ export function MarketBar({ market }: { market: string}) {
                     {Number(ticker?.priceChange) > 0 ? "+" : "-"}{ticker?.priceChange}
                 </div >
                 <div className={`${Number(ticker?.priceChange) >= 0 ? "text-accentGreen" : "text-accentRed"}`}>
-                    {Number(ticker?.priceChangePercent) * 100}%
+                    {(Number(ticker?.priceChangePercent) * 100).toFixed(2)}%
                 </div>
                 
             </div>
