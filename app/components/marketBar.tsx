@@ -4,15 +4,9 @@ import { getTicker } from "../utils/httpClients";
 import { Ticker } from "../utils/types";
 
 
-export function MarketBar({ market }: { market: string}) {
+export function MarketBar({ market, ticker }: { market: string, ticker: Ticker}) {
     const mkt = market.split("_")[0];
 
-    const [ticker, setTicker] = useState<Ticker | null>(null);
-
-    useEffect(() => {
-        getTicker(market).then(t => setTicker(t));
-
-    }, [market]);
 
     return <div className="flex gap-14 w-full h-16 border-b-[1px] border-slate-800">
         <div className="flex gap-2 ml-5 justify-center items-center">
@@ -35,7 +29,7 @@ export function MarketBar({ market }: { market: string}) {
             </div>
             <div className={`flex gap-2`}>
                 <div className={`${Number(ticker?.priceChange) >= 0 ? "text-accentGreen" : "text-accentRed"}`}>
-                    {Number(ticker?.priceChange) > 0 ? "+" : "-"}{ticker?.priceChange}
+                    {Number(ticker?.priceChange) > 0 ? "+" : ""}{ticker?.priceChange}
                 </div >
                 <div className={`${Number(ticker?.priceChange) >= 0 ? "text-accentGreen" : "text-accentRed"}`}>
                     {(Number(ticker?.priceChangePercent) * 100).toFixed(2)}%
@@ -61,7 +55,7 @@ export function MarketBar({ market }: { market: string}) {
         </div>
         <div className="flex flex-col font-normal items-center justify-center gap-1">
             <div className="text-gray-400">
-                24H Volume (USDC)
+                24H Volume ({market.split("_")[1]})
             </div>
             <div>
                 {Number(ticker?.quoteVolume).toLocaleString()}

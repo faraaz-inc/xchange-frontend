@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Depth, KLines, Ticker, Trade } from "./types";
+import { Depth, KLines, MarketData, Ticker, Trade } from "./types";
 
 const BASE_URL = "https://exchange-proxy.100xdevs.com/api/v1";
 
 
 //Get Depth
-async function getDepth(market: string): Promise<Depth> {
+export async function getDepth(market: string): Promise<Depth> {
     const response = await axios.get(`${BASE_URL}/depth?symbol=${market}`);
     if(!response)
         throw new Error("Error while fetching Depth");
@@ -49,3 +49,14 @@ export async function getTickers(): Promise<Ticker[]> {
 
     return response.data as Promise<Ticker[]>;
 }
+
+//Get Markets
+export async function getMarkets(): Promise<MarketData[]> {
+    const response = await axios.get("https://price-indexer.workers.madlads.com/?ids=solana,bitcoin,ethereum,aave,chainlink,uniswap,helium,shiba-inu");
+    if(!response)
+        throw new Error("Error while fetching market data");
+
+    return response.data as Promise<MarketData[]>;
+
+}
+
