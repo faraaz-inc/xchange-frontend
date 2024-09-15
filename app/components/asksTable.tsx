@@ -33,7 +33,7 @@ function Ask({price, quantity, total, maxTotal}: {price: string, quantity: strin
         backgroundColor: "transparent",
         overflow: "hidden",
     }}
->
+    >
     <div
         style={{
         position: "absolute",

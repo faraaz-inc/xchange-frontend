@@ -13,23 +13,23 @@ import { TradeView } from "@/app/components/tradeview";
 export default function() {
     const { market } = useParams();
 
-    const [ticker, setTicker] = useState<Ticker | null>(null);
+    // const [ticker, setTicker] = useState<Ticker | null>(null);
 
-    useEffect(() => {
-        getTicker(Array.isArray(market) ? market[0] : market).then(t => setTicker(t));
-    }, [ticker]);
+    // useEffect(() => {
+    //     getTicker(Array.isArray(market) ? market[0] : market).then(t => setTicker(t));
+    // }, [ticker]);
 
 
 
-    if(!ticker) {   
-        return <div className="w-full h-[700px] overflow-hidden scrollbar-hide flex justify-center items-center">
-            <ClipLoader color="#4a4a4a" size={30} />
-        </div>
-    }
+    // if(!ticker) {   
+    //     return <div className="w-full h-[700px] overflow-hidden scrollbar-hide flex justify-center items-center">
+    //         <ClipLoader color="#4a4a4a" size={30} />
+    //     </div>
+    // }
 
     return <div className="grid grid-cols-5">
         <div className="col-span-4 border-r-[1px] border-slate-800">
-            <MarketBar market={Array.isArray(market) ? market[0] : market} ticker={ticker} />
+            <MarketBar market={Array.isArray(market) ? market[0] : market} />
             <div className="grid grid-cols-4">
                 <div className="col-span-3">
                     <TradeView market={Array.isArray(market) ? market[0] : market} />

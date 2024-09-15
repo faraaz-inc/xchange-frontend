@@ -10,10 +10,10 @@ export function SwapUI({ market }: { market: string }) {
 
     return <div className="">
         <div className="grid grid-cols-2">
-            <div onClick={() => setMode(Mode.Buy)} className={`text-accentGreen h-16 flex items-center justify-center font-semibold ${mode === Mode.Buy ? "bg-accentGreenBg" : ""} w-full hover:cursor-pointer`}>
+            <div onClick={() => setMode(Mode.Buy)} className={`text-accentGreen h-16 flex items-center justify-center font-semibold ${mode === Mode.Buy ? "bg-accentGreenBg border-b-accentGreen border-b-[1px]" : ""} w-full hover:cursor-pointer`}>
                 Buy
             </div>
-            <div onClick={() => setMode(Mode.Sell)} className={`text-accentRed h-16 flex items-center justify-center font-semibold ${mode === Mode.Sell ? "bg-accentRedBg" : ""} w-full hover:cursor-pointer`}>
+            <div onClick={() => setMode(Mode.Sell)} className={`text-accentRed h-16 flex items-center justify-center font-semibold ${mode === Mode.Sell ? "bg-accentRedBg border-b-accentRed border-b-[1px]" : ""} w-full hover:cursor-pointer`}>
                 <div>
                     Sell
                 </div>

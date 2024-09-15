@@ -2,10 +2,45 @@
 import { useEffect, useState } from "react";
 import { getTicker } from "../utils/httpClients";
 import { Ticker } from "../utils/types";
+import { SignalingManager } from "../utils/signalingManager";
 
 
-export function MarketBar({ market, ticker }: { market: string, ticker: Ticker}) {
+export function MarketBar({ market }: { market: string }) {
+    const [ticker, setTicker] = useState<Ticker | null>(null);
+
     const mkt = market.split("_")[0];
+
+    useEffect(() => {
+        //set the ticker initially
+        getTicker(market).then(t => setTicker(t));
+
+        //register the callback for the signalling manager
+        //pass a callback function to set the ticker data in above state variable
+        SignalingManager.getInstance().registerCallback("ticker", (data: Partial<Ticker>) => setTicker(prevTicker => ({
+            firstPrice: data?.firstPrice ?? prevTicker?.firstPrice ?? "",
+            high: data.high ?? prevTicker?.high ?? "",
+            lastPrice: data?.lastPrice ?? prevTicker?.lastPrice ?? "",
+            low: data?.low ?? prevTicker?.low ?? "",
+            priceChange: data?.priceChange ?? prevTicker?.priceChange ?? "",
+            priceChangePercent: data?.priceChangePercent ?? prevTicker?.priceChangePercent ?? "",
+            quoteVolume: data?.quoteVolume ?? prevTicker?.quoteVolume ?? "",
+            symbol: data?.symbol ?? prevTicker?.symbol ?? "",
+            trades: data?.trades ?? prevTicker?.trades ?? "",
+            volume: data?.volume ?? prevTicker?.volume ?? ""
+
+        })), `TICKER-${market}`);
+
+        //subscribe to the ticker
+        SignalingManager.getInstance().sendMessage({"method": "SUBSCRIBE", "params":[`ticker.${market}`]});
+
+        return () => {
+            //de register the callback
+            SignalingManager.getInstance().deRegisterCallback("ticker", `TICKER-${market}`);
+            //unsubscribe
+            SignalingManager.getInstance().sendMessage({"method": "UNSUBSCRIBE", "params":[`ticker.${market}`]});
+        }
+
+    }, [market]);
 
 
     return <div className="flex gap-14 w-full h-16 border-b-[1px] border-slate-800">
@@ -16,11 +51,11 @@ export function MarketBar({ market, ticker }: { market: string, ticker: Ticker})
             </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-1">
-            <div className="text-[18px] text-accentGreen">
-                {ticker?.lastPrice}
+            <div className={`text-[18px] ${Number(ticker?.priceChange) >= 0 ? "text-accentGreen" : "text-accentRed"}`}>
+                {Number(ticker?.lastPrice).toFixed(2)}
             </div>
             <div>
-                ${ticker?.lastPrice}
+                ${Number(ticker?.lastPrice).toFixed(2)}
             </div>
         </div>
         <div className="flex flex-col font-normal items-center justify-center gap-1">
