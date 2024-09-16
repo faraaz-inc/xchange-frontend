@@ -45,7 +45,7 @@ export function MarketBar({ market }: { market: string }) {
 
     return <div className="flex gap-14 w-full h-16 border-b-[1px] border-slate-800">
         <div className="flex gap-2 ml-5 justify-center items-center">
-            <img src={`/coins/${mkt}.webp`} alt="Market" className="h-8 w-8" />
+            <img src={`/coins/${mkt}.png`} alt="Market" className="h-8 w-8" />
             <div>
                 {market.replace("_", "/")}
             </div>

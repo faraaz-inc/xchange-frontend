@@ -25,6 +25,8 @@ const config = {
         accentBlueBg: "rgba(78, 148, 255, 0.16)",
         accentRed: "rgb(253, 75, 78)",
         accentRedBg: "rgba(253, 75, 78, 0.16)",
+        accentGrayBg: '#0e0e0e',
+        accentGrayBorder: '#222224',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

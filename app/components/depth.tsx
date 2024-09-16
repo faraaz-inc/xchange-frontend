@@ -76,7 +76,7 @@ export function Depth({ market }: { market: string } ) {
     return <div>
         <TableHeader />
         {asks && <AskTable asks={asks} />}
-        {price && <div>{price}</div>}
+        {price && <div className="text-md py-2">{Number(price)}</div>}
         {bids && <BidsTable bids={bids} />}
 
     </div>

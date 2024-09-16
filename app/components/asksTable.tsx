@@ -33,7 +33,7 @@ function Ask({price, quantity, total, maxTotal}: {price: string, quantity: strin
         backgroundColor: "transparent",
         overflow: "hidden",
     }}
-    >
+>
     <div
         style={{
         position: "absolute",
@@ -41,11 +41,11 @@ function Ask({price, quantity, total, maxTotal}: {price: string, quantity: strin
         left: 0,
         width: `${(100 * total) / maxTotal}%`,
         height: "100%",
-        background: "rgba(228, 75, 68, 0.325)",
+        background: "rgba(253, 75, 78, 0.20)",
         transition: "width 0.3s ease-in-out",
         }}
     ></div>
-    <div className="flex justify-between text-xs w-full">
+    <div className="flex justify-between text-xs  w-full">
         <div>
             {price}
         </div>
